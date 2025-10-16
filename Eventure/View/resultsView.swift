@@ -1,15 +1,22 @@
 //
-//  ContentView.swift
+//  resultsView.swift
 //  Eventure
 //
 //  Created by Maddy Quinn on 10/16/25.
 //
 
+import CoreMotion
 import SwiftUI
 
-struct ContentView: View {
+struct resultsView: View {
     var body: some View {
         VStack {
+            ZStack{
+                Image("kayakPicture")
+                    .resizable()
+                    .renderingMode(.original)
+                    .frame(width:100, height:100)
+            }
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
@@ -20,5 +27,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    resultsView()
 }
