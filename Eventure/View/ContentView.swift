@@ -1,7 +1,11 @@
 import SwiftUI
+import Firebase
 
 struct ContentView: View {
+    let apiKey = ProcessInfo.processInfo.environment["GOOGLE_API_KEY"]
+    
 var body: some View {
+   
     NavigationStack{
         VStack{
             TabView{
