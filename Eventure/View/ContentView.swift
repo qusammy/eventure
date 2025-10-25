@@ -5,13 +5,13 @@ var body: some View {
     NavigationStack{
         VStack{
             TabView{
-                Tab("", systemImage: "person.fill") {
+                Tab("", systemImage: "gearshape.fill") {
                     homeView()
                 }
                 Tab("", systemImage: "house.fill"){
                     resultsView()
                 }
-                Tab("", systemImage: "gearshape.fill"){
+                Tab("", systemImage: "person.fill"){
                     logInView()
                 }
             }

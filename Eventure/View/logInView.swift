@@ -64,7 +64,7 @@ struct logInView: View{
                     .frame(width:225, height:50)
                     .foregroundStyle(Color("textFieldColor"))
                     .overlay{
-                        TextField("", text: $email, prompt: Text("email").foregroundColor(.white))
+                        TextField("", text: $email, prompt: Text("Email").foregroundColor(.white))
                             .disableAutocorrection(true)
                             .textInputAutocapitalization(.never)
                             .foregroundStyle(Color.white)
@@ -77,7 +77,7 @@ struct logInView: View{
                     .frame(width:225, height:50)
                     .foregroundStyle(Color("textFieldColor"))
                     .overlay{
-                        SecureField("", text: $password, prompt: Text("password").foregroundColor(.white))
+                        SecureField("", text: $password, prompt: Text("Password").foregroundColor(.white))
                             .disableAutocorrection(true)
                             .textInputAutocapitalization(.never)
                             .foregroundStyle(Color.white)
@@ -89,7 +89,7 @@ struct logInView: View{
                 Button {
                     // action
                 } label: {
-                   Text("forgot password")
+                   Text("Forgot Password")
                         .foregroundStyle(Color("darkColor"))
 
                 }.padding(.leading, 85)
@@ -125,7 +125,7 @@ struct logInView: View{
                         Text("CREATE ACCOUNT")
                             .foregroundStyle(Color.white)
                     }
-                }.padding(.top, 15)
+                }
             }
         }
     }
