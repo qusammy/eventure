@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreMotion
+import FirebaseAuth
 
 // Motion class
 
@@ -15,7 +16,6 @@ class MotionManager: ObservableObject {
     @Published var pitch: Double = 0.0
     @Published var roll: Double = 0.0
     
-    var createdNewAccount: Bool = false
 
     init() {
         motion.deviceMotionUpdateInterval = 1.0 / 60.0  // 60 updates per second
@@ -46,8 +46,9 @@ struct logInView: View{
     // Motion variable
     
     @StateObject private var motion = MotionManager()
-
+        
     var body: some View{
+        
         NavigationView{
             if viewModel.user != nil {
                 ZStack{
@@ -68,6 +69,9 @@ struct logInView: View{
                             .resizable()
                             .frame(width:300, height: 60)
                             .padding(.bottom, 50)
+                        Text("Welcome, \(viewModel.username)!")
+                            .foregroundStyle(Color("darkColor"))
+                            .font(Font.custom("UbuntuSans-Regular", size: 18))
                         Button {
                             viewModel.signOut()
                         } label: {
@@ -77,6 +81,7 @@ struct logInView: View{
                                     .foregroundStyle(Color("darkColor"))
                                 Text("LOG OUT")
                                     .foregroundStyle(Color.white)
+                                    .font(Font.custom("UbuntuSans-Regular", size: 18))
                             }
                         }
                         
@@ -113,6 +118,7 @@ struct logInView: View{
                                     .textInputAutocapitalization(.never)
                                     .foregroundStyle(Color.white)
                                     .padding(.leading, 5)
+                                    .font(Font.custom("UbuntuSans-Regular", size: 18))
                             }
                         
                         // Password secure field
@@ -126,6 +132,7 @@ struct logInView: View{
                                     .textInputAutocapitalization(.never)
                                     .foregroundStyle(Color.white)
                                     .padding(.leading, 5)
+                                    .font(Font.custom("UbuntuSans-Regular", size: 18))
                             }
                         
                         // Forgot password button
@@ -135,6 +142,7 @@ struct logInView: View{
                         } label: {
                             Text("Forgot Password")
                                 .foregroundStyle(Color("darkColor"))
+                                .font(Font.custom("UbuntuSans-Regular", size: 18))
                             
                         }.padding(.leading, 85)
                         
@@ -152,12 +160,16 @@ struct logInView: View{
                                     .foregroundStyle(Color("darkColor"))
                                 Text("LOG IN")
                                     .foregroundStyle(Color.white)
+                                    .font(Font.custom("UbuntuSans-Regular", size: 18))
+                                       
+                                    
                             }
                         }.padding(.top, 15)
                         
                         Text("OR")
                             .foregroundStyle(Color("darkColor"))
                             .padding(10)
+                            .font(Font.custom("UbuntuSans-Regular", size: 18))
                         
                         // Create new account button
                         
@@ -170,22 +182,20 @@ struct logInView: View{
                                     .foregroundStyle(Color("darkColor"))
                                 Text("CREATE ACCOUNT")
                                     .foregroundStyle(Color.white)
+                                    .font(Font.custom("UbuntuSans-Regular", size: 18))
                             }
                         }
                     }
                 }
             }
         }
+        .onAppear{
+            viewModel.getDisplayName()
+        }
         .fullScreenCover(isPresented: $showSignUpScreen, onDismiss: {
                     print("dismissed")
                 }) {
                     signUpView()
                 }
-    
-    }
-}
-
-
-#Preview {
-    logInView()
+        }
 }
