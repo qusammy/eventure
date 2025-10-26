@@ -10,8 +10,6 @@ struct signUpView: View {
     @State private var password: String = ""
     @State private var username: String = ""
     
-    @State var createdNewAccount: Bool = false
-    
     @StateObject private var viewModel = AuthViewModel()
 
     @StateObject private var motion = MotionManager()
@@ -42,6 +40,7 @@ struct signUpView: View {
                     .padding(.top, 10)
                     .padding(.bottom, 25)
                     .multilineTextAlignment(.center)
+                    .font(Font.custom("UbuntuSans-Regular", size: 18))
                 
                 // Email text field
                 
@@ -54,6 +53,7 @@ struct signUpView: View {
                             .textInputAutocapitalization(.never)
                             .foregroundStyle(Color.white)
                             .padding(.leading, 5)
+                            .font(Font.custom("UbuntuSans-Regular", size: 18))
                     }
                 
                 // username text field
@@ -67,6 +67,7 @@ struct signUpView: View {
                             .textInputAutocapitalization(.never)
                             .foregroundStyle(Color.white)
                             .padding(.leading, 5)
+                            .font(Font.custom("UbuntuSans-Regular", size: 18))
                     }
                 
                 // Password secure field
@@ -80,17 +81,16 @@ struct signUpView: View {
                             .textInputAutocapitalization(.never)
                             .foregroundStyle(Color.white)
                             .padding(.leading, 5)
+                            .font(Font.custom("UbuntuSans-Regular", size: 18))
                     }
                 
                 // Create new account button
                 
                 Button {
                     Task {
-                        createdNewAccount = true
+                        viewModel.createdNewAccount = true
                         await viewModel.signUp(email: email, password: password, username: username)
-                        await viewModel.signIn(email: email, password: password)
                         dismiss()
-                        
                     }
                 } label: {
                     ZStack{
@@ -99,6 +99,7 @@ struct signUpView: View {
                             .foregroundStyle(Color("darkColor"))
                         Text("CREATE ACCOUNT")
                             .foregroundStyle(Color.white)
+                            .font(Font.custom("UbuntuSans-Regular", size: 18))
                     }
                 }.padding(.top, 50)
                 
@@ -112,6 +113,7 @@ struct signUpView: View {
                     Text("Back to login")
                         .foregroundStyle(Color("darkColor"))
                         .padding(10)
+                        .font(Font.custom("UbuntuSans-Regular", size: 18))
                 }
             }
         }

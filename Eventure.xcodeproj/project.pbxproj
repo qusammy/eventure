@@ -40,9 +40,22 @@
 		005D969F2EA13FAF00E6188F /* EventureUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EventureUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0093FC9B2EAE9E0500C9752E /* Exceptions for "Eventure" folder in "Eventure" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 005D96872EA13FAE00E6188F /* Eventure */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		005D968A2EA13FAE00E6188F /* Eventure */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0093FC9B2EAE9E0500C9752E /* Exceptions for "Eventure" folder in "Eventure" target */,
+			);
 			path = Eventure;
 			sourceTree = "<group>";
 		};
@@ -414,6 +427,7 @@
 				DEVELOPMENT_TEAM = ATR84KT8F5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Eventure/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Eventure;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -443,6 +457,7 @@
 				DEVELOPMENT_TEAM = ATR84KT8F5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Eventure/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Eventure;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
