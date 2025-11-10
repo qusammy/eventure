@@ -11,6 +11,8 @@
 		003989A52EAD6FB6007F60C2 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 003989A42EAD6FB6007F60C2 /* FirebaseAuthCombine-Community */; };
 		003989A72EAD6FB6007F60C2 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 003989A62EAD6FB6007F60C2 /* FirebaseDatabase */; };
 		003989A92EAD6FB6007F60C2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 003989A82EAD6FB6007F60C2 /* FirebaseFirestore */; };
+		00F1CD342EBBED4300623945 /* req.json in Resources */ = {isa = PBXBuildFile; fileRef = 00F1CD332EBBED3000623945 /* req.json */; };
+		00F1CD3B2EBBF03E00623945 /* req.json in Resources */ = {isa = PBXBuildFile; fileRef = 00F1CD3A2EBBF03E00623945 /* req.json */; };
 		00FF85772EAD363300B0E542 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 00FF85762EAD363300B0E542 /* FirebaseAnalytics */; };
 		00FF85792EAD363300B0E542 /* FirebaseAnalyticsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 00FF85782EAD363300B0E542 /* FirebaseAnalyticsCore */; };
 		00FF857B2EAD363300B0E542 /* FirebaseAnalyticsIdentitySupport in Frameworks */ = {isa = PBXBuildFile; productRef = 00FF857A2EAD363300B0E542 /* FirebaseAnalyticsIdentitySupport */; };
@@ -38,6 +40,8 @@
 		005D96882EA13FAE00E6188F /* Eventure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eventure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		005D96952EA13FAF00E6188F /* EventureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EventureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		005D969F2EA13FAF00E6188F /* EventureUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EventureUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00F1CD332EBBED3000623945 /* req.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = req.json; sourceTree = "<group>"; };
+		00F1CD3A2EBBF03E00623945 /* req.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = req.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -97,6 +101,7 @@
 		005D967F2EA13FAE00E6188F = {
 			isa = PBXGroup;
 			children = (
+				00F1CD3A2EBBF03E00623945 /* req.json */,
 				005D968A2EA13FAE00E6188F /* Eventure */,
 				005D96892EA13FAE00E6188F /* Products */,
 			);
@@ -108,6 +113,7 @@
 				005D96882EA13FAE00E6188F /* Eventure.app */,
 				005D96952EA13FAF00E6188F /* EventureTests.xctest */,
 				005D969F2EA13FAF00E6188F /* EventureUITests.xctest */,
+				00F1CD332EBBED3000623945 /* req.json */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -237,6 +243,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00F1CD3B2EBBF03E00623945 /* req.json in Resources */,
+				00F1CD342EBBED4300623945 /* req.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
