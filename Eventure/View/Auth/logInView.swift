@@ -36,12 +36,10 @@ struct logInView: View{
     // Log-in variables and vm
     
     @StateObject private var viewModel = AuthViewModel()
-
-    @State var email: String = ""
-    @State var password: String = ""
-    @State var username: String = ""
     
     @State private var showSignUpScreen = false
+    @State private var showForgotPasswordScreen = false
+
 
     // Motion variable
     
@@ -113,7 +111,7 @@ struct logInView: View{
                             .frame(width:225, height:50)
                             .foregroundStyle(Color("textFieldColor"))
                             .overlay{
-                                TextField("", text: $email, prompt: Text("Email").foregroundColor(.white))
+                                TextField("", text: $viewModel.email, prompt: Text("Email").foregroundColor(.white))
                                     .disableAutocorrection(true)
                                     .textInputAutocapitalization(.never)
                                     .foregroundStyle(Color.white)
@@ -127,7 +125,7 @@ struct logInView: View{
                             .frame(width:225, height:50)
                             .foregroundStyle(Color("textFieldColor"))
                             .overlay{
-                                SecureField("", text: $password, prompt: Text("Password").foregroundColor(.white))
+                                SecureField("", text: $viewModel.password, prompt: Text("Password").foregroundColor(.white))
                                     .disableAutocorrection(true)
                                     .textInputAutocapitalization(.never)
                                     .foregroundStyle(Color.white)
@@ -135,27 +133,16 @@ struct logInView: View{
                                     .font(Font.custom("UbuntuSans-Regular", size: 18))
                             }
                         
-                        // Forgot password button
-                        
-                        Button {
-                            viewModel.resetPassword(email: email)
-                        } label: {
-                            Text("Forgot Password")
-                                .foregroundStyle(Color("darkColor"))
-                                .font(Font.custom("UbuntuSans-Regular", size: 18))
-                            
-                        }.padding(.leading, 85)
-                        
                         
                         // Log in button
                         
                         Button {
                             Task {
-                                await viewModel.signIn(email: email, password: password)
+                                await viewModel.signIn(email: viewModel.email, password: viewModel.password)
                             }
                         } label: {
                             ZStack{
-                                RoundedRectangle(cornerRadius: 15)
+                                RoundedRectangle(cornerRadius: 25)
                                     .frame(width:225, height:50)
                                     .foregroundStyle(Color("darkColor"))
                                 Text("LOG IN")
@@ -164,12 +151,26 @@ struct logInView: View{
                                        
                                     
                             }
-                        }.padding(.top, 15)
+                        }
+                        
+                        // Forgot password button
+                        
+                        Button {
+                            showForgotPasswordScreen.toggle()
+                        } label: {
+                            Text("Forgot Password?")
+                                .foregroundStyle(Color("darkColor"))
+                                .font(Font.custom("UbuntuSans-Regular", size: 15))
+                                .fontWeight(.regular)
+                            
+                        }
                         
                         Text("OR")
                             .foregroundStyle(Color("darkColor"))
                             .padding(10)
                             .font(Font.custom("UbuntuSans-Regular", size: 18))
+                            .fontWeight(.medium)
+
                         
                         // Create new account button
                         
@@ -177,7 +178,7 @@ struct logInView: View{
                             showSignUpScreen.toggle()
                         } label: {
                             ZStack{
-                                RoundedRectangle(cornerRadius: 15)
+                                RoundedRectangle(cornerRadius: 25)
                                     .frame(width:225, height:50)
                                     .foregroundStyle(Color("darkColor"))
                                 Text("CREATE ACCOUNT")
@@ -192,10 +193,17 @@ struct logInView: View{
         .onAppear{
             viewModel.getDisplayName()
         }
+        .fullScreenCover(isPresented: $showForgotPasswordScreen){
+            ResetPasswordView()
+        }
         .fullScreenCover(isPresented: $showSignUpScreen, onDismiss: {
                     print("dismissed")
                 }) {
                     signUpView()
                 }
         }
+}
+
+#Preview {
+    logInView()
 }
