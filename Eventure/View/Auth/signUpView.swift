@@ -14,6 +14,9 @@ struct signUpView: View {
 
     @StateObject private var motion = MotionManager()
     @Environment(\.dismiss) private var dismiss
+    
+    @State private var hasSignedUp: Bool = false
+    @State private var error: Bool = false
 
     var body: some View {
         ZStack{
@@ -41,6 +44,7 @@ struct signUpView: View {
                     .padding(.bottom, 25)
                     .multilineTextAlignment(.center)
                     .font(Font.custom("UbuntuSans-Regular", size: 18))
+                    .fontWeight(.medium)
                 
                 // Email text field
                 
@@ -84,24 +88,51 @@ struct signUpView: View {
                             .font(Font.custom("UbuntuSans-Regular", size: 18))
                     }
                 
+                if(hasSignedUp)
+                {
+                    Text("Please return to login and sign\n in with your new creditials.")
+                        .foregroundStyle(Color("darkColor"))
+                        .padding(.top, 10)
+                        .multilineTextAlignment(.center)
+                        .font(Font.custom("UbuntuSans-Regular", size: 18))
+                        .fontWeight(.medium)
+                }
+                
+                if(error)
+                {
+                    Text("Enter all required information.")
+                        .foregroundStyle(Color("darkColor"))
+                        .padding(.top, 10)
+                        .multilineTextAlignment(.center)
+                        .font(Font.custom("UbuntuSans-Regular", size: 18))
+                        .fontWeight(.medium)
+                }
+                
                 // Create new account button
                 
                 Button {
-                    Task {
-                        viewModel.createdNewAccount = true
-                        await viewModel.signUp(email: email, password: password, username: username)
-                        dismiss()
+                    if(email == "" || password == "" || username == ""){
+                        error = true
+                        hasSignedUp = false
+                    }
+                    else{
+                        Task {
+                            viewModel.createdNewAccount = true
+                            await viewModel.signUp(email: email, password: password, username: username)
+                            hasSignedUp = true
+                            error = false
+                        }
                     }
                 } label: {
                     ZStack{
-                        RoundedRectangle(cornerRadius: 15)
+                        RoundedRectangle(cornerRadius: 25)
                             .frame(width:225, height:50)
                             .foregroundStyle(Color("darkColor"))
                         Text("CREATE ACCOUNT")
                             .foregroundStyle(Color.white)
                             .font(Font.custom("UbuntuSans-Regular", size: 18))
                     }
-                }.padding(.top, 50)
+                }
                 
                 // Dismiss view
                 
@@ -114,6 +145,7 @@ struct signUpView: View {
                         .foregroundStyle(Color("darkColor"))
                         .padding(10)
                         .font(Font.custom("UbuntuSans-Regular", size: 18))
+                        .fontWeight(.medium)
                 }
             }
         }
