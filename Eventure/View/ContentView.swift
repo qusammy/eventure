@@ -10,7 +10,7 @@ var body: some View {
         VStack{
             TabView{
                 Tab("", systemImage: "gearshape.fill") {
-                    homeView()
+                    settingsView()
                 }
                 Tab("", systemImage: "house.fill"){
                     resultsView()
