@@ -70,14 +70,14 @@ struct logInView: View{
                         Text("Welcome, \(viewModel.username)!")
                             .foregroundStyle(Color("darkColor"))
                             .font(Font.custom("UbuntuSans-Regular", size: 18))
+                            .fontWeight(.medium)
                         Button {
-                            viewModel.signOut()
                         } label: {
                             ZStack{
-                                RoundedRectangle(cornerRadius: 15)
+                                RoundedRectangle(cornerRadius: 25)
                                     .frame(width:225, height:50)
                                     .foregroundStyle(Color("darkColor"))
-                                Text("LOG OUT")
+                                Text("TAKE SURVEY")
                                     .foregroundStyle(Color.white)
                                     .font(Font.custom("UbuntuSans-Regular", size: 18))
                             }
@@ -133,6 +133,13 @@ struct logInView: View{
                                     .font(Font.custom("UbuntuSans-Regular", size: 18))
                             }
                         
+                        if let errorMessage = viewModel.errorMessage {
+                            Text(errorMessage)
+                                .foregroundStyle(Color("darkColor"))
+                                .multilineTextAlignment(.center)
+                                .font(Font.custom("UbuntuSans-Regular", size: 15))
+                                .fontWeight(.medium)
+                        }
                         
                         // Log in button
                         
