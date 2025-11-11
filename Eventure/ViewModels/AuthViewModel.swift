@@ -6,24 +6,40 @@ import FirebaseFirestore
 @MainActor
 
 class AuthViewModel: ObservableObject {
+    
     @Published var user: FirebaseAuth.User? = nil
     @Published var isLoading = false
-    @Published var errorMessage = ""
     @Published var createdNewAccount = false
     @Published var email = ""
     @Published var password = ""
     @Published var username = ""
     
+    @Published var errorMessage: String?
+    
     let db = Firestore.firestore()
     
     init() {
-        self.user = Auth.auth().currentUser
+        Auth.auth().addStateDidChangeListener { [weak self] _, user in
+               self?.user = user
+               if let user = user {
+                   // Optionally load display name when signed in
+                   self?.getDisplayName()
+               } else {
+                   self?.username = ""
+               }
+           }
     }
 
     func signUp(email: String, password: String, username: String) async {
         guard !email.isEmpty, !password.isEmpty else{
             return
         }
+        guard password.count >= 6 else {
+               DispatchQueue.main.async {
+                   self.errorMessage = "Password must be at least 6 characters long."
+               }
+               return
+           }
         isLoading = true
         errorMessage = ""
         do {
@@ -33,9 +49,26 @@ class AuthViewModel: ObservableObject {
                            "email": email,
                            "username": username
                        ], merge: true)
-        } catch {
-            self.errorMessage = error.localizedDescription
+            createdNewAccount = true
+        } catch let error as NSError {
+            DispatchQueue.main.async {
+                if let authError = AuthErrorCode(_bridgedNSError: error) {
+                    switch authError.code {
+                    case .emailAlreadyInUse:
+                        self.errorMessage = "An account already exists for that email."
+                    case .invalidEmail:
+                        self.errorMessage = "Please enter a valid email address."
+                    case .weakPassword:
+                        self.errorMessage = "Password must be at least 6 characters long."
+                    default:
+                        self.errorMessage = "Sign-up failed. Please try again."
+                    }
+                } else {
+                    self.errorMessage = "An unknown error occurred."
+                }
+            }
         }
+
         isLoading = false
     }
 
@@ -46,7 +79,7 @@ class AuthViewModel: ObservableObject {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.user = result.user
         } catch {
-            self.errorMessage = error.localizedDescription
+            self.errorMessage = "User email or password\nis incorrect."
         }
         isLoading = false
     }
