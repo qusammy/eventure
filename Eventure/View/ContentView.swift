@@ -4,19 +4,25 @@ import Firebase
 struct ContentView: View {
     let apiKey = ProcessInfo.processInfo.environment["GOOGLE_API_KEY"]
     
+    @StateObject private var viewModel = AuthViewModel()
+    
 var body: some View {
-   
-    NavigationStack{
-        VStack{
-            TabView{
-                Tab("", systemImage: "gearshape.fill") {
-                    settingsView()
-                }
-                Tab("", systemImage: "house.fill"){
-                    resultsView()
-                }
-                Tab("", systemImage: "person.fill"){
-                    logInView()
+    if viewModel.user == nil {
+        logInView()
+    }
+    else {
+        NavigationStack{
+            VStack{
+                TabView{
+                    Tab("", systemImage: "gearshape.fill") {
+                        settingsView()
+                    }
+                    Tab("", systemImage: "house.fill"){
+                        resultsView()
+                    }
+                    Tab("", systemImage: "person.fill"){
+                        logInView()
+                    }
                 }
             }
         }

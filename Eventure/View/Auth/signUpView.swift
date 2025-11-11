@@ -87,12 +87,9 @@ struct signUpView: View {
                             .padding(.leading, 5)
                             .font(Font.custom("UbuntuSans-Regular", size: 18))
                     }
-                
-                if(hasSignedUp)
-                {
-                    Text("Please return to login and sign\n in with your new creditials.")
+                if let errorMessage = viewModel.errorMessage {
+                    Text(errorMessage)
                         .foregroundStyle(Color("darkColor"))
-                        .padding(.top, 10)
                         .multilineTextAlignment(.center)
                         .font(Font.custom("UbuntuSans-Regular", size: 18))
                         .fontWeight(.medium)
@@ -102,7 +99,6 @@ struct signUpView: View {
                 {
                     Text("Enter all required information.")
                         .foregroundStyle(Color("darkColor"))
-                        .padding(.top, 10)
                         .multilineTextAlignment(.center)
                         .font(Font.custom("UbuntuSans-Regular", size: 18))
                         .fontWeight(.medium)
@@ -117,9 +113,7 @@ struct signUpView: View {
                     }
                     else{
                         Task {
-                            viewModel.createdNewAccount = true
                             await viewModel.signUp(email: email, password: password, username: username)
-                            hasSignedUp = true
                             error = false
                         }
                     }
