@@ -81,7 +81,7 @@ struct ResetPasswordView: View {
                         RoundedRectangle(cornerRadius: 25)
                             .frame(width:225, height:50)
                             .foregroundStyle(Color("darkColor"))
-                        Text("RESET PASSWORD")
+                        Text("Reset password")
                             .foregroundStyle(Color.white)
                             .font(Font.custom("UbuntuSans-Regular", size: 18))
                     }

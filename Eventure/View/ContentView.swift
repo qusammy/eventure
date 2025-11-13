@@ -14,14 +14,11 @@ var body: some View {
         NavigationStack{
             VStack{
                 TabView{
-                    Tab("", systemImage: "gearshape.fill") {
+                    Tab("", systemImage: "person.fill") {
                         settingsView()
                     }
                     Tab("", systemImage: "house.fill"){
                         resultsView()
-                    }
-                    Tab("", systemImage: "person.fill"){
-                        logInView()
                     }
                 }
             }

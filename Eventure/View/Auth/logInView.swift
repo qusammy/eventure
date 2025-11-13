@@ -39,7 +39,7 @@ struct logInView: View{
     
     @State private var showSignUpScreen = false
     @State private var showForgotPasswordScreen = false
-
+    @State private var showSurveyScreen = false
 
     // Motion variable
     
@@ -48,44 +48,6 @@ struct logInView: View{
     var body: some View{
         
         NavigationView{
-            if viewModel.user != nil {
-                ZStack{
-                    Image("kayakPicture")
-                        .resizable()
-                        .renderingMode(.original)
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width:1000, height:1000)
-                        .ignoresSafeArea() .offset(x: motion.roll * 50, y: motion.pitch * 50)
-                        .animation(.easeOut(duration: 0.1), value: motion.roll)
-                        .blur(radius: 4)
-                    Rectangle()
-                        .ignoresSafeArea()
-                        .foregroundStyle(.white)
-                        .opacity(0.40)
-                    VStack{
-                        Image("eventureLogo")
-                            .resizable()
-                            .frame(width:300, height: 60)
-                            .padding(.bottom, 50)
-                        Text("Welcome, \(viewModel.username)!")
-                            .foregroundStyle(Color("darkColor"))
-                            .font(Font.custom("UbuntuSans-Regular", size: 18))
-                            .fontWeight(.medium)
-                        Button {
-                        } label: {
-                            ZStack{
-                                RoundedRectangle(cornerRadius: 25)
-                                    .frame(width:225, height:50)
-                                    .foregroundStyle(Color("darkColor"))
-                                Text("TAKE SURVEY")
-                                    .foregroundStyle(Color.white)
-                                    .font(Font.custom("UbuntuSans-Regular", size: 18))
-                            }
-                        }
-                        
-                    }
-                }
-            } else {
                 ZStack{
                     Image("kayakPicture")
                         .resizable()
@@ -152,7 +114,7 @@ struct logInView: View{
                                 RoundedRectangle(cornerRadius: 25)
                                     .frame(width:225, height:50)
                                     .foregroundStyle(Color("darkColor"))
-                                Text("LOG IN")
+                                Text("Log in")
                                     .foregroundStyle(Color.white)
                                     .font(Font.custom("UbuntuSans-Regular", size: 18))
                                        
@@ -188,10 +150,9 @@ struct logInView: View{
                                 RoundedRectangle(cornerRadius: 25)
                                     .frame(width:225, height:50)
                                     .foregroundStyle(Color("darkColor"))
-                                Text("CREATE ACCOUNT")
+                                Text("Create Account")
                                     .foregroundStyle(Color.white)
                                     .font(Font.custom("UbuntuSans-Regular", size: 18))
-                            }
                         }
                     }
                 }
