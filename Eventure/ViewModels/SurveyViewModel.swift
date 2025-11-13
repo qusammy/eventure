@@ -9,7 +9,7 @@ class SurveyViewModel: ObservableObject {
     @Published var question2: String = ""
     @Published var question3: String = ""
     @Published var question4: String = ""
-    @Published var errorMessage: String = ""
+    @Published var errorMessage: String? = nil
 
     var surveyData: [String: Any] {
         [

@@ -18,7 +18,7 @@ var body: some View {
                         settingsView()
                     }
                     Tab("", systemImage: "house.fill"){
-                        resultsView()
+                        resultsView(isFavorited: false)
                     }
                 }
             }

@@ -10,7 +10,7 @@ struct SurveyView: View {
     
     // Firebase variables
     let db = Firestore.firestore()
-
+    
     var body: some View {
         ZStack{
             Image("kayakPicture")
