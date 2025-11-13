@@ -122,7 +122,7 @@ struct signUpView: View {
                         RoundedRectangle(cornerRadius: 25)
                             .frame(width:225, height:50)
                             .foregroundStyle(Color("darkColor"))
-                        Text("CREATE ACCOUNT")
+                        Text("Create new account")
                             .foregroundStyle(Color.white)
                             .font(Font.custom("UbuntuSans-Regular", size: 18))
                     }
