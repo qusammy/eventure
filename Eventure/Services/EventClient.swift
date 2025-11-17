@@ -2,16 +2,33 @@ import Foundation
 
 // MARK: - Models
 
-public struct EventSummary: Codable, Identifiable {
-    public let id = UUID()        // Local ID for SwiftUI List
+public struct EventSummary: Identifiable {
+    public let id = UUID()
     public let title: String
     public let startTime: String?
     public let venue: String?
     public let url: String?
+    public let snippet: String?
 }
 
-public struct EventsResponse: Codable {
-    public let items: [EventSummary]
+private struct RawEvent: Codable {
+    let title: String
+    let startTime: String?
+    let venue: String?
+    let url: String?
+}
+
+private struct EventsResponse: Codable {
+    let items: [RawEvent]
+    let descriptions: [String]?   // optional snippets from backend
+}
+
+// MARK: - Request Model
+
+public struct EventRequest: Codable {
+    public let location: String
+    public let interests: [String]
+    public let date: String
 }
 
 // MARK: - Client
@@ -23,34 +40,23 @@ public struct EventClient {
         self.endpoint = endpoint
     }
 
-    // MARK: - Public API (File → Save response to disk)
+    // MARK: - High-level APIs
 
-    /// Posts a JSON file (by path String) to `endpoint`,
-    /// saves the response to a file, and returns the output file URL.
-    @discardableResult
-    public func postJSON(fromFile inPath: String,
-                         saveTo outPath: String? = nil,
-                         prettyPrintToStdout: Bool = true) async throws -> URL {
-        let reqURL = URL(fileURLWithPath: inPath)
-        let body = try Data(contentsOf: reqURL)
-        return try await postJSON(body: body,
-                                  saveTo: outPath,
-                                  prettyPrintToStdout: prettyPrintToStdout)
+    /// New: send a request built in Swift (no file needed).
+    public func fetchEvents(request: EventRequest) async throws -> [EventSummary] {
+        let body = try JSONEncoder().encode(request)
+        let data = try await performRequest(body: body)
+        return try decodeEvents(from: data)
     }
 
-    /// Posts a JSON file (by file URL, ideal for bundle resources),
-    /// saves the response to a file, and returns the output file URL.
-    @discardableResult
-    public func postJSON(fromFile fileURL: URL,
-                         saveTo outPath: String? = nil,
-                         prettyPrintToStdout: Bool = true) async throws -> URL {
+    /// Old path: send a JSON file and decode events.
+    public func fetchEvents(fromFile fileURL: URL) async throws -> [EventSummary] {
         let body = try Data(contentsOf: fileURL)
-        return try await postJSON(body: body,
-                                  saveTo: outPath,
-                                  prettyPrintToStdout: prettyPrintToStdout)
+        let data = try await performRequest(body: body)
+        return try decodeEvents(from: data)
     }
 
-    /// Posts raw JSON data to `endpoint`, saves the response to a file, and returns the output file URL.
+    /// Old path: save response to disk (for debugging).
     @discardableResult
     public func postJSON(body: Data,
                          saveTo outPath: String? = nil,
@@ -60,7 +66,6 @@ public struct EventClient {
 
         let data = try await performRequest(body: body)
 
-        // Decide where to save the response
         let outputURL: URL
         if let outPath, !outPath.isEmpty {
             outputURL = URL(fileURLWithPath: outPath)
@@ -80,27 +85,8 @@ public struct EventClient {
         return outputURL
     }
 
-    // MARK: - Public API (File → Decode events)
-
-    /// Reads JSON body from a file URL, posts it, and decodes the response into `[EventSummary]`.
-    public func fetchEvents(fromFile fileURL: URL) async throws -> [EventSummary] {
-        let body = try Data(contentsOf: fileURL)
-        let data = try await performRequest(body: body)
-
-        let decoder = JSONDecoder()
-        let response = try decoder.decode(EventsResponse.self, from: data)
-        return response.items
-    }
-
-    /// Convenience: reads JSON body from a path String, posts it, and decodes the response into `[EventSummary]`.
-    public func fetchEvents(fromFilePath path: String) async throws -> [EventSummary] {
-        let fileURL = URL(fileURLWithPath: path)
-        return try await fetchEvents(fromFile: fileURL)
-    }
-
     // MARK: - Core request
 
-    /// Sends the request and returns raw response data, or throws on HTTP / URL errors.
     private func performRequest(body: Data) async throws -> Data {
         var request = URLRequest(url: endpoint)
         request.httpMethod = "POST"
@@ -128,6 +114,25 @@ public struct EventClient {
         } catch {
             print("❌ [EventClient] URLSession error: \(error)")
             throw error
+        }
+    }
+
+    // MARK: - Decode helper
+
+    private func decodeEvents(from data: Data) throws -> [EventSummary] {
+        let decoder = JSONDecoder()
+        let decoded = try decoder.decode(EventsResponse.self, from: data)
+        let snippets = decoded.descriptions ?? []
+
+        return decoded.items.enumerated().map { index, raw in
+            let snippet = index < snippets.count ? snippets[index] : nil
+            return EventSummary(
+                title: raw.title,
+                startTime: raw.startTime,
+                venue: raw.venue,
+                url: raw.url,
+                snippet: snippet
+            )
         }
     }
 
