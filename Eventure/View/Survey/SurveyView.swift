@@ -39,17 +39,21 @@ struct SurveyView: View {
                         .foregroundStyle(Color("darkColor"))
                         .font(Font.custom("UbuntuSans-Regular", size: 25))
                         .fontWeight(.medium)
+                    
                     SurveyViewStyleFRQ(
                         question: "Where are you located?",
-                        userAnswer: $surveyVM.question1)
+                        userAnswer: $surveyVM.question1
+                    )
+                    
                     SurveyViewStyleMC(
                         question: "Which of the following do you prefer to do the most?",
                         answer1: "Going to concerts",
-                        answer2: "Coloring with friends",
-                        answer3: "Rock climbing",
-                        answer4: "Playing video games",
+                        answer2: "Watching sports",
+                        answer3: "Attending museums",
+                        answer4: "Watching movies",
                         selectedAnswer: $surveyVM.question2
                     )
+                    
                     SurveyViewStyleMC(
                         question: "What would you identify yourself most closely with?",
                         answer1: "Extrovert",
@@ -91,7 +95,6 @@ struct SurveyView: View {
             }
         }
     }
-    
 }
 
 #Preview {
