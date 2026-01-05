@@ -9,6 +9,7 @@ public struct EventSummary: Identifiable {
     public let venue: String?
     public let url: String?
     public let snippet: String?
+    public let image: String?   // optional image asset or URL from backend
 }
 
 private struct RawEvent: Codable {
@@ -16,11 +17,13 @@ private struct RawEvent: Codable {
     let startTime: String?
     let venue: String?
     let url: String?
+    let image: String?   // optional image (asset or URL) from backend per-item
 }
 
 private struct EventsResponse: Codable {
     let items: [RawEvent]
     let descriptions: [String]?   // optional snippets from backend
+    let images: [String]?        // optional images (assets or URLs) from backend
 }
 
 // MARK: - Request Model
@@ -123,15 +126,20 @@ public struct EventClient {
         let decoder = JSONDecoder()
         let decoded = try decoder.decode(EventsResponse.self, from: data)
         let snippets = decoded.descriptions ?? []
+        let images = decoded.images ?? []
 
         return decoded.items.enumerated().map { index, raw in
             let snippet = index < snippets.count ? snippets[index] : nil
+            let imageFromArray = index < images.count ? images[index] : nil
+            // Prefer per-item image if provided by backend, otherwise fall back to top-level images[].
+            let image = raw.image ?? imageFromArray
             return EventSummary(
                 title: raw.title,
                 startTime: raw.startTime,
                 venue: raw.venue,
                 url: raw.url,
-                snippet: snippet
+                snippet: snippet,
+                image: image
             )
         }
     }
