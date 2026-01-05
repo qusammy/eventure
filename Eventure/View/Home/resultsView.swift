@@ -53,7 +53,8 @@ struct resultsView: View {
                                 EventCard(
                                     isFavorited: false,
                                     eventName: event.title,
-                                    eventPicture: imageName(for: event),
+                                    eventImage: event.image,
+                                    fallbackImageName: imageName(for: event),
                                     eventDate: formattedDate(from: event.startTime),
                                     snippet: snippet(for: event),
                                     urlString: event.url
@@ -176,7 +177,8 @@ struct resultsView: View {
 struct EventCard: View {
     @State var isFavorited: Bool
     let eventName: String
-    let eventPicture: String
+    let eventImage: String?
+    let fallbackImageName: String
     let eventDate: String
     let snippet: String
     let urlString: String?
@@ -207,11 +209,47 @@ struct EventCard: View {
     // The visual content of the card (image + overlays)
     private var cardContent: some View {
         ZStack(alignment: .bottom) {
-            Image(eventPicture)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
+            // 1) If backend provided an image string that parses to an http(s) URL -> load remote image with AsyncImage.
+            if let imageString = eventImage,
+               let url = URL(string: imageString),
+               let scheme = url.scheme, (scheme == "http" || scheme == "https") {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .empty:
+                        Color.gray
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    case .failure(_):
+                        Image(fallbackImageName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    @unknown default:
+                        Image(fallbackImageName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    }
+                }
                 .clipped()
                 .frame(width: 400, height: 300)
+            }
+            // 2) Otherwise try to use backend string as local asset name
+            else if let imageString = eventImage {
+                Image(imageString)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .clipped()
+                    .frame(width: 400, height: 300)
+            }
+            // 3) Fallback to our local asset decision
+            else {
+                Image(fallbackImageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .clipped()
+                    .frame(width: 400, height: 300)
+            }
 
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
