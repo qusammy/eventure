@@ -4,3 +4,5 @@
 **/.env.*
 **/xcuserdata/
 *.xcuserstate
+GoogleService-Info.plist
+**/GoogleService-Info.plist
