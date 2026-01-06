@@ -35,7 +35,7 @@ struct signUpView: View {
             VStack{
                 Image("eventureLogo")
                     .resizable()
-                    .frame(width:300, height: 60)
+                    .frame(width:300, height: 150)
                     .padding(.bottom, 50)
                 
                 Text("Enter creditentials below to \ncreate a new account")

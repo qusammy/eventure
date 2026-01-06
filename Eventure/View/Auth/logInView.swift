@@ -64,8 +64,7 @@ struct logInView: View{
                     VStack{
                         Image("eventureLogo")
                             .resizable()
-                            .frame(width:300, height: 60)
-                            .padding(.bottom, 50)
+                            .frame(width:300, height: 150)
                         
                         // Email text field
                         

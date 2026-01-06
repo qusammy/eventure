@@ -33,7 +33,7 @@ struct resultsView: View {
                         Image("eventureLogo")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 300, height: 60)
+                            .frame(width: 300, height: 150)
                             .padding(.top, 40)
 
                         Text("events in your area based on survey responses")
