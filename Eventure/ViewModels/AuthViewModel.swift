@@ -2,6 +2,7 @@ import SwiftUI
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
+import GoogleSignIn
 
 @MainActor
 
@@ -84,14 +85,56 @@ class AuthViewModel: ObservableObject {
         isLoading = false
     }
 
+    func signInWithGoogle() {
+            guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+
+            let config = GIDConfiguration(clientID: clientID)
+            GIDSignIn.sharedInstance.configuration = config
+
+            guard let rootViewController = UIApplication.shared
+                .connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .first?
+                .windows
+                .first?
+                .rootViewController else {
+                return
+            }
+
+            GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController) { result, error in
+                if let error = error {
+                    print("Google sign-in error:", error.localizedDescription)
+                    return
+                }
+
+                guard
+                    let user = result?.user,
+                    let idToken = user.idToken?.tokenString
+                else { return }
+
+                let credential = GoogleAuthProvider.credential(
+                    withIDToken: idToken,
+                    accessToken: user.accessToken.tokenString
+                )
+
+                Auth.auth().signIn(with: credential) { _, error in
+                    if let error = error {
+                        print("Firebase Google auth error:", error.localizedDescription)
+                    }
+                }
+            }
+        }
+    
     func signOut() {
         do {
             try Auth.auth().signOut()
+            GIDSignIn.sharedInstance.signOut()
             self.user = nil
         } catch {
             self.errorMessage = error.localizedDescription
         }
     }
+    
     func resetPassword(email: String){
             Auth.auth().sendPasswordReset(withEmail: email){ error in
                 if error != nil {

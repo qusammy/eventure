@@ -77,7 +77,7 @@ struct logInView: View{
                                     .textInputAutocapitalization(.never)
                                     .foregroundStyle(Color.white)
                                     .padding(.leading, 5)
-                                    .font(Font.custom("UbuntuSans-Regular", size: 18))
+                                    .font(Font.custom("DidactGothic-Regular", size: 18))
                             }
                         
                         // Password secure field
@@ -91,14 +91,14 @@ struct logInView: View{
                                     .textInputAutocapitalization(.never)
                                     .foregroundStyle(Color.white)
                                     .padding(.leading, 5)
-                                    .font(Font.custom("UbuntuSans-Regular", size: 18))
+                                    .font(Font.custom("DidactGothic-Regular", size: 18))
                             }
                         
                         if let errorMessage = viewModel.errorMessage {
                             Text(errorMessage)
                                 .foregroundStyle(Color("darkColor"))
                                 .multilineTextAlignment(.center)
-                                .font(Font.custom("UbuntuSans-Regular", size: 15))
+                                .font(Font.custom("DidactGothic-Regular", size: 15))
                                 .fontWeight(.medium)
                         }
                         
@@ -113,9 +113,9 @@ struct logInView: View{
                                 RoundedRectangle(cornerRadius: 25)
                                     .frame(width:225, height:50)
                                     .foregroundStyle(Color("darkColor"))
-                                Text("Log in")
+                                Text("Sign in")
                                     .foregroundStyle(Color.white)
-                                    .font(Font.custom("UbuntuSans-Regular", size: 18))
+                                    .font(Font.custom("DidactGothic-Regular", size: 18))
                                        
                                     
                             }
@@ -128,15 +128,23 @@ struct logInView: View{
                         } label: {
                             Text("Forgot Password?")
                                 .foregroundStyle(Color("darkColor"))
-                                .font(Font.custom("UbuntuSans-Regular", size: 15))
+                                .font(Font.custom("DidactGothic-Regular", size: 15))
                                 .fontWeight(.regular)
                             
+                        }
+                        
+                        Button{
+                            viewModel.signInWithGoogle()
+                        } label: {
+                            Image("google_round")
+                                .resizable()
+                                .frame(width:50, height: 50)
                         }
                         
                         Text("OR")
                             .foregroundStyle(Color("darkColor"))
                             .padding(10)
-                            .font(Font.custom("UbuntuSans-Regular", size: 18))
+                            .font(Font.custom("DidactGothic-Regular", size: 18))
                             .fontWeight(.medium)
 
                         
@@ -151,7 +159,7 @@ struct logInView: View{
                                     .foregroundStyle(Color("darkColor"))
                                 Text("Create Account")
                                     .foregroundStyle(Color.white)
-                                    .font(Font.custom("UbuntuSans-Regular", size: 18))
+                                    .font(Font.custom("DidactGothic-Regular", size: 18))
                         }
                     }
                 }

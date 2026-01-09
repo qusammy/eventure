@@ -11,6 +11,10 @@ struct signUpView: View {
     @State private var username: String = ""
     
     @StateObject private var viewModel = AuthViewModel()
+    
+    // Google Sign in link
+    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     @StateObject private var motion = MotionManager()
     @Environment(\.dismiss) private var dismiss
@@ -36,14 +40,11 @@ struct signUpView: View {
                 Image("eventureLogo")
                     .resizable()
                     .frame(width:300, height: 150)
-                    .padding(.bottom, 50)
                 
                 Text("Enter creditentials below to \ncreate a new account")
                     .foregroundStyle(Color("darkColor"))
-                    .padding(.top, 10)
-                    .padding(.bottom, 25)
                     .multilineTextAlignment(.center)
-                    .font(Font.custom("UbuntuSans-Regular", size: 18))
+                    .font(Font.custom("DidactGothic-Regular", size: 18))
                     .fontWeight(.medium)
                 
                 // Email text field
@@ -57,7 +58,7 @@ struct signUpView: View {
                             .textInputAutocapitalization(.never)
                             .foregroundStyle(Color.white)
                             .padding(.leading, 5)
-                            .font(Font.custom("UbuntuSans-Regular", size: 18))
+                            .font(Font.custom("DidactGothic-Regular", size: 18))
                     }
                 
                 // username text field
@@ -71,7 +72,7 @@ struct signUpView: View {
                             .textInputAutocapitalization(.never)
                             .foregroundStyle(Color.white)
                             .padding(.leading, 5)
-                            .font(Font.custom("UbuntuSans-Regular", size: 18))
+                            .font(Font.custom("DidactGothic-Regular", size: 18))
                     }
                 
                 // Password secure field
@@ -85,13 +86,13 @@ struct signUpView: View {
                             .textInputAutocapitalization(.never)
                             .foregroundStyle(Color.white)
                             .padding(.leading, 5)
-                            .font(Font.custom("UbuntuSans-Regular", size: 18))
+                            .font(Font.custom("DidactGothic-Regular", size: 18))
                     }
                 if let errorMessage = viewModel.errorMessage {
                     Text(errorMessage)
                         .foregroundStyle(Color("darkColor"))
                         .multilineTextAlignment(.center)
-                        .font(Font.custom("UbuntuSans-Regular", size: 18))
+                        .font(Font.custom("DidactGothic-Regular", size: 18))
                         .fontWeight(.medium)
                 }
                 
@@ -100,7 +101,7 @@ struct signUpView: View {
                     Text("Enter all required information.")
                         .foregroundStyle(Color("darkColor"))
                         .multilineTextAlignment(.center)
-                        .font(Font.custom("UbuntuSans-Regular", size: 18))
+                        .font(Font.custom("DidactGothic-Regular", size: 18))
                         .fontWeight(.medium)
                 }
                 
@@ -124,10 +125,22 @@ struct signUpView: View {
                             .foregroundStyle(Color("darkColor"))
                         Text("Create new account")
                             .foregroundStyle(Color.white)
-                            .font(Font.custom("UbuntuSans-Regular", size: 18))
+                            .font(Font.custom("DidactGothic-Regular", size: 18))
                     }
                 }
-                
+                    Text("OR")
+                        .foregroundStyle(Color("darkColor"))
+                        .padding(10)
+                        .font(Font.custom("DidactGothic-Regular", size: 18))
+                        .fontWeight(.medium)
+                    Button{
+                        viewModel.signInWithGoogle()
+                    } label: {
+                        Image("google_round")
+                            .resizable()
+                            .frame(width:50, height: 50)
+                    
+                }
                 // Dismiss view
                 
                 Button {
@@ -138,7 +151,7 @@ struct signUpView: View {
                     Text("Back to login")
                         .foregroundStyle(Color("darkColor"))
                         .padding(10)
-                        .font(Font.custom("UbuntuSans-Regular", size: 18))
+                        .font(Font.custom("DidactGothic-Regular", size: 18))
                         .fontWeight(.medium)
                 }
             }

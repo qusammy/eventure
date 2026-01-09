@@ -27,12 +27,12 @@ struct settingsView: View {
                 Image("eventureLogo")
                     .resizable()
                     .frame(width:300, height: 150)
-                Text("Welcome, \(viewModel.username)! Eventure uses AI to\ngenerate events in your area tailored\nto your interests. Take the\nsurvey below to get started.")
+                Text("Welcome, \(viewModel.username.isEmpty ? "User" : viewModel.username)! Eventure uses AI to\ngenerate events in your area tailored\nto your interests. Take the\nsurvey below to get started.")
                     .foregroundStyle(Color("darkColor"))
-                    .font(Font.custom("UbuntuSans-Regular", size: 18))
+                    .font(Font.custom("DidactGothic-Regular", size: 18))
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
-                    .padding(40)
+                    .padding(.bottom, 20)
                 
                 Button {
                     showSurveyScreen.toggle()
@@ -43,13 +43,13 @@ struct settingsView: View {
                             .foregroundStyle(Color("darkColor"))
                         Text("Take survey")
                             .foregroundStyle(Color.white)
-                            .font(Font.custom("UbuntuSans-Regular", size: 18))
+                            .font(Font.custom("DidactGothic-Regular", size: 18))
                     }
                 }
                 
                 Text("OR")
                     .foregroundStyle(Color("darkColor"))
-                    .font(Font.custom("UbuntuSans-Regular", size: 18))
+                    .font(Font.custom("DidactGothic-Regular", size: 18))
                     .fontWeight(.regular)
                 
                 Button {
@@ -61,7 +61,7 @@ struct settingsView: View {
                             .foregroundStyle(Color("darkColor"))
                         Text("Log out")
                             .foregroundStyle(Color.white)
-                            .font(Font.custom("UbuntuSans-Regular", size: 18))
+                            .font(Font.custom("DidactGothic-Regular", size: 18))
                     }
                 }
             }

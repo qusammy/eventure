@@ -33,7 +33,7 @@ struct ResetPasswordView: View {
                 Text("Please enter the email to your\naccount to reset its password")
                     .foregroundStyle(Color("darkColor"))
                     .padding(10)
-                    .font(Font.custom("UbuntuSans-Regular", size: 18))
+                    .font(Font.custom("DidactGothic-Regular", size: 18))
                     .fontWeight(.medium)
                     .multilineTextAlignment(.center)
                 RoundedRectangle(cornerRadius: 15)
@@ -45,14 +45,14 @@ struct ResetPasswordView: View {
                             .textInputAutocapitalization(.never)
                             .foregroundStyle(Color.white)
                             .padding(.leading, 5)
-                            .font(Font.custom("UbuntuSans-Regular", size: 18))
+                            .font(Font.custom("DidactGothic-Regular", size: 18))
                     }
                 
                 if (sentEmail == true) {
                     Text("Check your email for a reset link.\nIf it's not there, try your spam folder.")
                         .foregroundStyle(Color("darkColor"))
                         .padding(10)
-                        .font(Font.custom("UbuntuSans-Regular", size: 18))
+                        .font(Font.custom("DidactGothic-Regular", size: 18))
                         .fontWeight(.medium)
                         .multilineTextAlignment(.center)
                 }
@@ -60,7 +60,7 @@ struct ResetPasswordView: View {
                     Text("Please enter a valid email.")
                         .foregroundStyle(Color("darkColor"))
                         .padding(10)
-                        .font(Font.custom("UbuntuSans-Regular", size: 18))
+                        .font(Font.custom("DidactGothic-Regular", size: 18))
                         .fontWeight(.medium)
                         .multilineTextAlignment(.center)
                 }
@@ -82,7 +82,7 @@ struct ResetPasswordView: View {
                             .foregroundStyle(Color("darkColor"))
                         Text("Reset password")
                             .foregroundStyle(Color.white)
-                            .font(Font.custom("UbuntuSans-Regular", size: 18))
+                            .font(Font.custom("DidactGothic-Regular", size: 18))
                     }
                 }
                 Button {
@@ -90,7 +90,7 @@ struct ResetPasswordView: View {
                 } label: {
                     Text("Back to login")
                         .foregroundStyle(Color("darkColor"))
-                        .font(Font.custom("UbuntuSans-Regular", size: 15))
+                        .font(Font.custom("DidactGothic-Regular", size: 15))
                         .fontWeight(.medium)
                     
                 }

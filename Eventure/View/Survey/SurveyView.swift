@@ -30,14 +30,14 @@ struct SurveyView: View {
                     } label: {
                         Text("Exit survey")
                             .foregroundStyle(Color("darkColor"))
-                            .font(Font.custom("UbuntuSans-Regular", size: 18))
+                            .font(Font.custom("DidactGothic-Regular", size: 18))
                     }
                     .offset(x:-135)
                     .padding(10)
                     
                     Text("Start Survey Below")
                         .foregroundStyle(Color("darkColor"))
-                        .font(Font.custom("UbuntuSans-Regular", size: 25))
+                        .font(Font.custom("DidactGothic-Regular", size: 25))
                         .fontWeight(.medium)
                     
                     SurveyViewStyleFRQ(
@@ -82,7 +82,7 @@ struct SurveyView: View {
                                 .foregroundStyle(Color("darkColor"))
                             Text("Submit survey to AI")
                                 .foregroundStyle(Color.white)
-                                .font(Font.custom("UbuntuSans-Regular", size: 18))
+                                .font(Font.custom("DidactGothic-Regular", size: 18))
                                 .fontWeight(.medium)
                         }
                     }

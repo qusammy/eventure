@@ -18,7 +18,7 @@ struct SurveyViewStyleMC: View {
         VStack {
             Text(question)
                 .foregroundStyle(Color("darkColor"))
-                .font(Font.custom("UbuntuSans-Regular", size: 20))
+                .font(Font.custom("DidactGothic-Regular", size: 20))
                 .fontWeight(.medium)
                 .multilineTextAlignment(.center)
                 .padding()
@@ -58,7 +58,7 @@ struct SurveyViewStyleMC: View {
                                 ? Color.white
                                 : Color("darkColor")
                             )
-                            .font(Font.custom("UbuntuSans-Regular", size: 18))
+                            .font(Font.custom("DidactGothic-Regular", size: 18))
                             .fontWeight(.medium)
                     }
                 }
@@ -76,7 +76,7 @@ struct SurveyViewStyleFRQ: View {
         VStack {
             Text(question)
                 .foregroundStyle(Color("darkColor"))
-                .font(Font.custom("UbuntuSans-Regular", size: 20))
+                .font(Font.custom("DidactGothic-Regular", size: 20))
                 .fontWeight(.medium)
                 .multilineTextAlignment(.center)
                 .padding()
@@ -95,7 +95,7 @@ struct SurveyViewStyleFRQ: View {
                     )
                     .foregroundStyle(Color("darkColor"))
                     .padding(.leading, 5)
-                    .font(Font.custom("UbuntuSans-Regular", size: 18))
+                    .font(Font.custom("DidactGothic-Regular", size: 18))
                     .fontWeight(.medium)
                 }
         }
